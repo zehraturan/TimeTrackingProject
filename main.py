@@ -9,7 +9,7 @@ class LoginUI(QDialog):
     def __init__(self):
         super(LoginUI, self).__init__()
         loadUi("./UI/login.ui", self)
-
+        
         # This is example of changing screen
         self.loginButton.clicked.connect(self.loginAction)
         self.signUpButton.clicked.connect(self.signupAction)
@@ -18,9 +18,10 @@ class LoginUI(QDialog):
         main_menu = MainMenuUI()
         widget.addWidget(main_menu)
         widget.setCurrentIndex(widget.currentIndex()+1)
+        #main_menu.titleWorkspaceLabel.setText(self.nameInputSignUp.text()) #--
 
     def loginAction(self):
-        print(self.emailInputLogin.text())
+        #print(self.emailInputLogin.text())
         authController = AuthController()
         resultMsg = authController.login(self.emailInputLogin.text())
         self.errorTextLogin.setText(resultMsg)
@@ -28,9 +29,9 @@ class LoginUI(QDialog):
             self.go_main_menu()
     
     def signupAction(self):
-        print(self.emailInputSignUp.text())
+        #print(self.emailInputSignUp.text())
         authController = AuthController()
-        resultMsg = authController.signup(self.nameInputSignUp.text(),self.emailInputSignUp.text())
+        resultMsg = authController.signup(self.emailInputSignUp.text(),self.nameInputSignUp.text())
         self.errorTextSignUp.setText(resultMsg)
         
 

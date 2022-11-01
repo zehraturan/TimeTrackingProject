@@ -13,10 +13,10 @@ class AuthController :
         else:
             return "User not found"
 
-    def signup(self, name, email):
+    def signup(self, email, name):
         if self.dbAccess.isExistUser(email):
             return "Already exist"
         else:
-            user = User(name, email)
+            user = User(email, name)
             self.dbAccess.saveUser(user)
             return "Success"
