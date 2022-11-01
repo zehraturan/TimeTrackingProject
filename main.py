@@ -14,19 +14,18 @@ class LoginUI(QDialog):
         self.loginButton.clicked.connect(self.loginAction)
         self.signUpButton.clicked.connect(self.signupAction)
 
-    def go_main_menu(self):
+    def go_main_menu(self, current_user_name):
         main_menu = MainMenuUI()
         widget.addWidget(main_menu)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        #main_menu.titleWorkspaceLabel.setText(self.nameInputSignUp.text()) #--
+        main_menu.titleWorkspaceLabel.setText(current_user_name) 
 
     def loginAction(self):
-        #print(self.emailInputLogin.text())
         authController = AuthController()
         resultMsg = authController.login(self.emailInputLogin.text())
         self.errorTextLogin.setText(resultMsg)
         if resultMsg == 'Success':
-            self.go_main_menu()
+            self.go_main_menu(authController.current_user.name+"'s Workspace")
     
     def signupAction(self):
         #print(self.emailInputSignUp.text())

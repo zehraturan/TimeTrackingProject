@@ -5,10 +5,10 @@ from DB.DbAccess import DbAccess
 
 class AuthController :
     dbAccess = DbAccess()
-    
+    current_user = None
     def login(self,email):
-        #user = User(email)
         if self.dbAccess.isExistUser(email):
+            self.current_user = self.dbAccess.getUser(email)
             return "Success"
         else:
             return "User not found"
