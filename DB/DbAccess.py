@@ -2,6 +2,8 @@ from collections import UserDict
 import json
 import os.path
 
+from Model.User import User
+
 class DbAccess:
     json_file = 'new.json'
     userDict = dict()
@@ -13,8 +15,9 @@ class DbAccess:
         self.userDict.update({user.email : user.toJSON()})
         self.write(self.userDict)
 
-    # def getUser(self,email):
-
+    def getUser(self,email):
+        return User(self.userDict.get(email))
+        
     def isExistUser(self, email):
         if email in self.userDict:
             return True
