@@ -12,10 +12,20 @@ class PomController():
         
     def addRecipient(self, r_email):
         if(re.fullmatch(self.regex, r_email)):
-            self.user.addRecipient(r_email)
-            self.dbAccess.saveUser(self.user)
-            return "Success"
+            if (self.user.addRecipient(r_email)):
+                self.dbAccess.saveUser(self.user)
+                return "Success"
         return "Fail"
         
     def getRecipients(self):
         return self.user.recipients
+    
+    def addProject(self,p_name):
+        if p_name.strip():
+            if self.user.addProject(p_name):
+                self.dbAccess.saveUser(self.user)
+                return "Success"
+        return "Fail"
+    
+    def getProjects(self):
+        return self.user.projects

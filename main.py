@@ -47,8 +47,12 @@ class MainMenuUI(QDialog):
         self.deleteRecipientCombo.clear()
         self.deleteRecipientCombo.addItems(self.pomController.getRecipients())
         
+        self.projectDeleteCombo.clear()
+        self.projectDeleteCombo.addItems(self.pomController.getProjects())
+        
         #Event Actions
         self.addRecipientButton.clicked.connect(self.addRecipientAction)
+        self.addProjectButton.clicked.connect(self.addProjectAction)
 
 
     def addRecipientAction(self):
