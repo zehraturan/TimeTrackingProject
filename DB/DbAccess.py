@@ -16,7 +16,7 @@ class DbAccess:
         self.write(self.userDict)
 
     def getUser(self,email):
-        return User(self.userDict.get(email))
+        return User(**json.loads(self.userDict.get(email)))
         
     def isExistUser(self, email):
         if email in self.userDict:
