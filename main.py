@@ -32,8 +32,8 @@ class LoginUI(QDialog):
     def signupAction(self):
         #print(self.emailInputSignUp.text())
         authController = AuthController()
-        resultMsg = authController.signup(self.emailInputSignUp.text(),self.nameInputSignUp.text())
-        self.errorTextSignUp.setText(resultMsg)
+        result_msg = authController.signup(self.emailInputSignUp.text(),self.nameInputSignUp.text())
+        self.errorTextSignUp.setText(result_msg)
         
         
 class MainMenuUI(QDialog):
@@ -41,12 +41,23 @@ class MainMenuUI(QDialog):
         super(MainMenuUI, self).__init__()
         loadUi("./UI/mainMenu.ui", self)
         
+        #Initial Load
+        self.pomController = PomController(authController.current_user)
+
+        self.deleteRecipientCombo.clear()
+        self.deleteRecipientCombo.addItems(self.pomController.getRecipients())
+        
+        #Event Actions
         self.addRecipientButton.clicked.connect(self.addRecipientAction)
 
 
     def addRecipientAction(self):
-        pomController = PomController(authController.current_user)
-        pomController.addRecipient(self.addRecipientInput.text())
+        result_msg = self.pomController.addRecipient(self.addRecipientInput.text())
+        if result_msg == "Success":
+            self.deleteRecipientCombo.addItem(self.addRecipientInput.text())
+        self.errorTextRecipientsEmailLabel.setText(result_msg) 
+        
+        
         
 class PomodoroUI(QDialog):
     def __init__(self):
