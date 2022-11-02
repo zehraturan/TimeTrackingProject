@@ -10,3 +10,9 @@ class User(object):
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
     
+    def addRecipient(self, r_email):
+        self.recipients.append(r_email)
+        
+    
+        
+    

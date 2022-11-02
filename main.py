@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.uic import loadUi
 from Controller.AuthController import AuthController
+from Controller.PomController import PomController
 
 class LoginUI(QDialog):
     def __init__(self):
@@ -21,6 +22,7 @@ class LoginUI(QDialog):
         main_menu.titleWorkspaceLabel.setText(current_user_name) 
 
     def loginAction(self):
+        global authController
         authController = AuthController()
         resultMsg = authController.login(self.emailInputLogin.text())
         self.errorTextLogin.setText(resultMsg)
@@ -33,13 +35,19 @@ class LoginUI(QDialog):
         resultMsg = authController.signup(self.emailInputSignUp.text(),self.nameInputSignUp.text())
         self.errorTextSignUp.setText(resultMsg)
         
-
+        
 class MainMenuUI(QDialog):
     def __init__(self):
         super(MainMenuUI, self).__init__()
         loadUi("./UI/mainMenu.ui", self)
+        
+        self.addRecipientButton.clicked.connect(self.addRecipientAction)
 
 
+    def addRecipientAction(self):
+        pomController = PomController(authController.current_user)
+        pomController.addRecipient(self.addRecipientInput.text())
+        
 class PomodoroUI(QDialog):
     def __init__(self):
         super(PomodoroUI, self).__init__()
