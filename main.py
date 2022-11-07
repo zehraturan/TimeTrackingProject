@@ -54,11 +54,10 @@ class MainMenuUI(QDialog):
         self.selectProjectCombo.addItems(self.pomController.getProjects())
         
         self.subjectDeleteCombo.clear()
-        #self.subjectDeleteCombo.addItems(self.pomController.firstProjectSubjects())
+        self.subjectDeleteCombo.addItems(self.pomController.getSubjects(self.projectDeleteCombo.currentText()))
         
         self.selectSubjectCombo.clear()
-       # self.selectSubjectCombo.addItems("1")
-        
+        self.selectSubjectCombo.addItems(self.pomController.getSubjects(self.selectProjectCombo.currentText()))
         
         # Event Actions
         self.addRecipientButton.clicked.connect(self.addRecipientAction)
@@ -66,6 +65,9 @@ class MainMenuUI(QDialog):
         self.addSubjectButton.clicked.connect(self.addSubjectAction)
         self.deleteRecipientButton.clicked.connect(self.delRecipientAction)
         self.projectDeleteButton.clicked.connect(self.delProjectAction)
+        self.projectDeleteCombo.currentTextChanged.connect(self.selectDeleteProjectAction)
+        self.selectProjectCombo.currentTextChanged.connect(self.selectProjectAction)
+        
 
     def addRecipientAction(self):
         result_msg = self.pomController.addRecipient(self.addRecipientInput.text())
@@ -93,6 +95,13 @@ class MainMenuUI(QDialog):
         self.selectProjectCombo.clear()
         self.selectProjectCombo.addItems(self.pomController.getProjects())
         
+    def selectDeleteProjectAction(self, p_name):
+        self.subjectDeleteCombo.clear()
+        self.subjectDeleteCombo.addItems(self.pomController.getSubjects(p_name))
+        
+    def selectProjectAction(self, p_name):
+        self.selectSubjectCombo.clear()
+        self.selectSubjectCombo.addItems(self.pomController.getSubjects(p_name))
 
     def addSubjectAction(self):
         result_msg = self.pomController.addSubject(self.selectProjectCombo.currentText(), self.addSubjectInput.text())

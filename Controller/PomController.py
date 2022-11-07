@@ -50,17 +50,5 @@ class PomController():
         return "Fail"
     
     def getSubjects(self, p_name):
-        return self.user.projects[p_name].subjects
+        return self.user.projects[p_name]['subjects']
     
-    def firstProjectSubjects(self):
-        if len(self.user.projects) > 0 :
-            first_proj = list(self.user.projects.items())[0]
-            print('FirstProj')
-            print(type(first_proj))
-
-            print(first_proj.toJSON())
-            return first_proj.subjects.keys()
-        else:
-            return list("")
-        
-        
