@@ -50,9 +50,20 @@ class MainMenuUI(QDialog):
         self.projectDeleteCombo.clear()
         self.projectDeleteCombo.addItems(self.pomController.getProjects())
         
-        #Event Actions
+        self.selectProjectCombo.clear()
+        self.selectProjectCombo.addItems(self.pomController.getProjects())
+        
+        self.subjectDeleteCombo.clear()
+        #self.subjectDeleteCombo.addItems(self.pomController.firstProjectSubjects())
+        
+        self.selectSubjectCombo.clear()
+       # self.selectSubjectCombo.addItems("1")
+        
+        
+        # Event Actions
         self.addRecipientButton.clicked.connect(self.addRecipientAction)
         self.addProjectButton.clicked.connect(self.addProjectAction)
+        self.addSubjectButton.clicked.connect(self.addSubjectAction)
 
 
     def addRecipientAction(self):
@@ -61,8 +72,21 @@ class MainMenuUI(QDialog):
             self.deleteRecipientCombo.addItem(self.addRecipientInput.text())
         self.errorTextRecipientsEmailLabel.setText(result_msg) 
         
-        
-        
+    def addProjectAction(self):
+        result_msg = self.pomController.addProject(self.addProjectInput.text())
+        if result_msg == "Success":
+            self.projectDeleteCombo.addItem(self.addProjectInput.text())
+            self.selectProjectCombo.addItem(self.addProjectInput.text())
+        self.errorTextProjectLabel.setText(result_msg)
+
+    def addSubjectAction(self):
+        result_msg = self.pomController.addSubject(self.selectProjectCombo.currentText(), self.addSubjectInput.text())
+        if result_msg == "Success":
+            self.subjectDeleteCombo.addItem(self.addSubjectInput.text())
+            self.selectSubjectCombo.addItem(self.addSubjectInput.text())
+        self.errorTextSubjectLabel.setText(result_msg)
+
+
 class PomodoroUI(QDialog):
     def __init__(self):
         super(PomodoroUI, self).__init__()

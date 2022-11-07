@@ -4,9 +4,11 @@ import json
 class Session:
     duration = 25
 
-    def __init__(self, name, task_list=[]):
+    def __init__(self, name, start_time=None, finish_time=None):
         self.name = name
-        self.task_list = task_list
+        self.start_time = start_time
+        self.finish_time = finish_time
+        self.task_list = []
 
     def addTask(self, task):
         self.task_list.append(task)

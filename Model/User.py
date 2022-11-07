@@ -1,7 +1,10 @@
 import json
 
+from Model.Project import Project
+from Model.Subject import Subject
+
 class User(object):
-    def __init__(self, email, name, projects=[], recipients=[]):
+    def __init__(self, email, name, projects, recipients):
         self.name = name
         self.email = email
         self.projects = projects
@@ -18,10 +21,18 @@ class User(object):
         
     def addProject(self, p_name):
         if p_name not in self.projects:
-            self.projects.append(p_name)
+            proj=Project(p_name,{})
+            self.projects.update({p_name:proj})
             return True
         return False
-        
     
-        
+    def getProject(self, p_name):
+        return self.projects[p_name]
+    
+    def addSubject(self, p_name, s_name):
+        if s_name not in self.projects[p_name]['subjects']:
+            subj = Subject(s_name,[])
+            self.projects[p_name]['subjects'][s_name] = subj
+            return True
+        return False
     

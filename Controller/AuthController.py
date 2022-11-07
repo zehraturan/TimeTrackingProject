@@ -17,7 +17,7 @@ class AuthController :
         if self.dbAccess.isExistUser(email):
             return "Already exist"
         elif(re.fullmatch(self.regex, email)):
-            user = User(email, name)
+            user = User(email, name,{},[])
             self.dbAccess.saveUser(user)
             return "Success"
         else:

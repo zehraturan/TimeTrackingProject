@@ -1,9 +1,12 @@
 import json
 
-class Project  : 
-    def __init__ ( self, name, subject_list=[]):
+from Model.Subject import Subject
+
+class Project(object)  : 
+    def __init__ ( self, name, subjects):
         self.name = name
-        self.subject_list=subject_list
+        self.subjects={}
         
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    
