@@ -50,5 +50,5 @@ class PomController():
         return "Fail"
     
     def getSubjects(self, p_name):
-        return self.user.projects[p_name]['subjects']
+        return self.user.getSubjects(p_name)
     

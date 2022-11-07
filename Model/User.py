@@ -42,3 +42,7 @@ class User(object):
             return True
         return False
     
+    def getSubjects(self, p_name):
+        if p_name in self.projects and type(self.projects[p_name]) == dict:
+            return self.projects[p_name]['subjects']
+        return None
