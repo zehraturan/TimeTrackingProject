@@ -18,7 +18,10 @@ class User(object):
             self.recipients.append(r_email)
             return True
         return False
-        
+    
+    def delRecipient(self, r_email):
+        self.recipients.remove(r_email)
+    
     def addProject(self, p_name):
         if p_name not in self.projects:
             proj=Project(p_name,{})
@@ -28,6 +31,7 @@ class User(object):
     
     def getProject(self, p_name):
         return self.projects[p_name]
+    
     
     def addSubject(self, p_name, s_name):
         if s_name not in self.projects[p_name]['subjects']:

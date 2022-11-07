@@ -64,13 +64,20 @@ class MainMenuUI(QDialog):
         self.addRecipientButton.clicked.connect(self.addRecipientAction)
         self.addProjectButton.clicked.connect(self.addProjectAction)
         self.addSubjectButton.clicked.connect(self.addSubjectAction)
+        self.deleteRecipientButton.clicked.connect(self.delRecipientAction)
 
 
     def addRecipientAction(self):
         result_msg = self.pomController.addRecipient(self.addRecipientInput.text())
         if result_msg == "Success":
             self.deleteRecipientCombo.addItem(self.addRecipientInput.text())
+            self.addRecipientInput.clear()
         self.errorTextRecipientsEmailLabel.setText(result_msg) 
+        
+    def delRecipientAction(self):
+        self.pomController.delRecipient(self.deleteRecipientCombo.currentText())
+        self.deleteRecipientCombo.clear()
+        self.deleteRecipientCombo.addItems(self.pomController.getRecipients())
         
     def addProjectAction(self):
         result_msg = self.pomController.addProject(self.addProjectInput.text())

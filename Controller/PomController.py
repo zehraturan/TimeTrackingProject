@@ -22,6 +22,10 @@ class PomController():
     def getRecipients(self):
         return self.user.recipients
     
+    def delRecipient(self, r_email):
+        self.user.delRecipient(r_email)
+        self.dbAccess.saveUser(self.user)
+            
     def addProject(self,p_name):
         if p_name.strip():
             if self.user.addProject(p_name):
