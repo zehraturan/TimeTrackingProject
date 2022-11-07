@@ -32,6 +32,8 @@ class User(object):
     def getProject(self, p_name):
         return self.projects[p_name]
     
+    def delProject(self, p_name) :
+        del self.projects[p_name]
     
     def addSubject(self, p_name, s_name):
         if s_name not in self.projects[p_name]['subjects']:

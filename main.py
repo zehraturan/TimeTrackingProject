@@ -65,7 +65,7 @@ class MainMenuUI(QDialog):
         self.addProjectButton.clicked.connect(self.addProjectAction)
         self.addSubjectButton.clicked.connect(self.addSubjectAction)
         self.deleteRecipientButton.clicked.connect(self.delRecipientAction)
-
+        self.projectDeleteButton.clicked.connect(self.delProjectAction)
 
     def addRecipientAction(self):
         result_msg = self.pomController.addRecipient(self.addRecipientInput.text())
@@ -85,6 +85,14 @@ class MainMenuUI(QDialog):
             self.projectDeleteCombo.addItem(self.addProjectInput.text())
             self.selectProjectCombo.addItem(self.addProjectInput.text())
         self.errorTextProjectLabel.setText(result_msg)
+        
+    def delProjectAction(self):
+        self.pomController.delProject(self.projectDeleteCombo.currentText())
+        self.projectDeleteCombo.clear()
+        self.projectDeleteCombo.addItems(self.pomController.getProjects())
+        self.selectProjectCombo.clear()
+        self.selectProjectCombo.addItems(self.pomController.getProjects())
+        
 
     def addSubjectAction(self):
         result_msg = self.pomController.addSubject(self.selectProjectCombo.currentText(), self.addSubjectInput.text())

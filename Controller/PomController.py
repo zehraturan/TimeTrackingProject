@@ -33,6 +33,10 @@ class PomController():
                 return "Success"
         return "Fail"
     
+    def delProject(self, p_name):
+        self.user.delProject(p_name)
+        self.dbAccess.saveUser(self.user)
+    
     def getProjects(self):
         return self.user.projects
     
