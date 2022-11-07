@@ -5,7 +5,7 @@ import os.path
 from Model.User import User
 
 class DbAccess:
-    json_file = 'new.json'
+    json_file = 'users.json'
     userDict = dict()
 
     def __init__(self):
