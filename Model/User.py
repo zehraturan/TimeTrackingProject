@@ -2,6 +2,7 @@ import json
 
 from Model.Project import Project
 from Model.Subject import Subject
+from Model.Pomodoro import Pomodoro
 
 class User(object):
     def __init__(self, email, name, projects, recipients):
@@ -46,3 +47,9 @@ class User(object):
         if p_name in self.projects and type(self.projects[p_name]) == dict:
             return self.projects[p_name]['subjects']
         return None
+    
+    def newPomodoro(self, p_name, s_name):
+        pomodoro = Pomodoro("Pomodoro1")
+        self.projects[p_name]['subjects'][s_name]['pomodoro_list'].append(pomodoro) 
+        
+    

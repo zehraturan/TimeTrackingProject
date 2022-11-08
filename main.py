@@ -69,6 +69,13 @@ class MainMenuUI(QDialog):
         self.projectDeleteButton.clicked.connect(self.delProjectAction)
         self.projectDeleteCombo.currentTextChanged.connect(self.selectDeleteProjectAction)
         self.selectProjectCombo.currentTextChanged.connect(self.selectProjectAction)
+        self.startPomodoroButton.clicked.connect(self.go_pomodoro)
+
+    def go_pomodoro(self):
+        pomodoro_ui = PomodoroUI()
+        widget.addWidget(pomodoro_ui)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        pomodoro_ui.setCurrentSubject(self.selectProjectCombo.currentText(), self.selectSubjectCombo.currentText())
         
 
     def addRecipientAction(self):
@@ -116,10 +123,21 @@ class MainMenuUI(QDialog):
 
 
 class PomodoroUI(QDialog):
+    current_project = ""
+    current_subject = ""
+    
     def __init__(self):
         super(PomodoroUI, self).__init__()
         loadUi("./UI/pomodoro.ui", self)
+        
+        #Initial Load
+        self.pomController = PomController(authController.current_user)
 
+    def setCurrentSubject(self, p_name, s_name):
+        self.current_project = p_name
+        self.current_subject = s_name
+        self.pomController.startPomodoro(p_name, s_name)
+        #print(p_name  + " " + s_name)
 
 class ShortBreakUI(QDialog):
     def __init__(self):

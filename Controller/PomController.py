@@ -52,3 +52,9 @@ class PomController():
     def getSubjects(self, p_name):
         return self.user.getSubjects(p_name)
     
+    def startPomodoro(self, p_name, s_name):
+        self.user.newPomodoro(p_name, s_name)
+        self.dbAccess.saveUser(self.user)
+        print(self.user.toJSON())
+    
+    
