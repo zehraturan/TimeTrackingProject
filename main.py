@@ -75,7 +75,7 @@ class MainMenuUI(QDialog):
         pomodoro_ui = PomodoroUI()
         widget.addWidget(pomodoro_ui)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        pomodoro_ui.setCurrentSubject(self.selectProjectCombo.currentText(), self.selectSubjectCombo.currentText())
+        pomodoro_ui.setCurrentSubject(self.selectProjectCombo.currentText(), self.selectSubjectCombo.currentText(),0)
         
 
     def addRecipientAction(self):
@@ -125,6 +125,7 @@ class MainMenuUI(QDialog):
 class PomodoroUI(QDialog):
     current_project = ""
     current_subject = ""
+    current_session_index = 0
     
     def __init__(self):
         super(PomodoroUI, self).__init__()
@@ -132,13 +133,21 @@ class PomodoroUI(QDialog):
         
         #Initial Load
         self.pomController = PomController(authController.current_user)
+        
+        # Event Actions
+        self.addTask.clicked.connect(self.addTaskAction)
 
-    def setCurrentSubject(self, p_name, s_name):
+
+    def setCurrentSubject(self, p_name, s_name, session_index):
         self.current_project = p_name
         self.current_subject = s_name
+        self.current_session_index = session_index
         self.pomController.startPomodoro(p_name, s_name)
-        #print(p_name  + " " + s_name)
-
+        self.numberOfSession.setText(session_index)
+        
+    def addTaskAction(self):
+        self.pomController.addTask(self.current_project, self.current_subject,self.current_session_index, self.taskInput.text())
+        self.tasksCombo.addItem(self.taskInput.text())
 class ShortBreakUI(QDialog):
     def __init__(self):
         super(ShortBreakUI, self).__init__()

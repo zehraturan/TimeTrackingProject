@@ -3,6 +3,7 @@ import json
 from Model.Project import Project
 from Model.Subject import Subject
 from Model.Pomodoro import Pomodoro
+from Model.Task import Task
 
 class User(object):
     def __init__(self, email, name, projects, recipients):
@@ -52,4 +53,9 @@ class User(object):
         pomodoro = Pomodoro("Pomodoro1")
         self.projects[p_name]['subjects'][s_name]['pomodoro_list'].append(pomodoro) 
         
-    
+    def addTask(self, p_name, s_name, session_index, t_name):
+        task = Task(t_name, False)
+        self.projects[p_name]['subjects'][s_name]['pomodoro_list'][-1]["session_list"][session_index]["task_list"].append(task)
+        print(self.projects[p_name]['subjects'][s_name]['pomodoro_list'][-1]["session_list"][session_index])
+        return True
+        

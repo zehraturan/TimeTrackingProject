@@ -43,7 +43,6 @@ class PomController():
     def addSubject(self, p_name, s_name):
         if s_name.strip():
             if self.user.addSubject(p_name, s_name):
-                print(self.user.toJSON())
                 self.dbAccess.saveUser(self.user)
                 print(self.user.toJSON())
                 return "Success"
@@ -57,4 +56,11 @@ class PomController():
         self.dbAccess.saveUser(self.user)
         print(self.user.toJSON())
     
+    def addTask(self, p_name, s_name, session_index, t_name):
+        if t_name.strip():
+            if self.user.addTask(p_name, s_name,session_index, t_name):
+                self.dbAccess.saveUser(self.user)
+                #print(self.user.toJSON())
+                return "Success"
+        return "Fail"
     
