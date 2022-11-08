@@ -9,6 +9,9 @@ class Session:
         self.start_time = start_time
         self.finish_time = finish_time
         self.task_list = []
+        
+    def __getitem__(self, item):
+        return getattr(self, item)
 
     def addTask(self, task):
         self.task_list.append(task)
